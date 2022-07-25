@@ -8,21 +8,72 @@ class CustomDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            rel="preconnect"
-            href="https://fonts.googleapis.com"
+            rel="preload"
+            href="https://www.washingtonpost.com/wp-stat/assets/fonts/PostoniWide-Bold.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
           />
           <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
+            rel="preload"
+            href="https://www.washingtonpost.com/wp-stat/assets/fonts/PostoniWide-Regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
           />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="preload"
+            href="https://www.washingtonpost.com/wp-stat/assets/fonts/ITC_Franklin-Bold.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
           />
           <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700&display=optional"
+            rel="preload"
+            href="https://www.washingtonpost.com/wp-stat/assets/fonts/ITC_Franklin-Light.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `@font-face {
+								font-family: Postoni;
+								font-weight: 700;
+								font-display: fallback;
+								src: url(https://www.washingtonpost.com/wp-stat/assets/fonts/PostoniWide-Bold.woff2);
+								unicode-range: U+a, U+20-29, U+2c-5b, U+5d, U+5f, U+61-7d, U+a0, U+a9, U+c9,
+								  U+e0-e3, U+e7, U+e9, U+ea, U+ed, U+f3-f5, U+fa, U+2009, U+2013, U+2014,
+								  U+2018, U+2019, U+201c, U+201d, U+2026;
+							  }
+							  @font-face {
+								font-family: Postoni;
+								font-weight: 300;
+								font-display: fallback;
+								src: url(https://www.washingtonpost.com/wp-stat/assets/fonts/PostoniWide-Regular.woff2);
+							  }
+							  @font-face {
+								font-family: Franklin;
+								font-weight: 700;
+								font-display: fallback;
+								unicode-range: U+a, U+20-29, U+2c-5b, U+5d, U+5f, U+61-7d, U+a0, U+a9, U+c9,
+								  U+e0-e3, U+e7, U+e9, U+ea, U+ed, U+f3-f5, U+fa, U+2009, U+2013, U+2014,
+								  U+2018, U+2019, U+201c, U+201d, U+2026;
+								src: url(https://www.washingtonpost.com/wp-stat/assets/fonts/ITC_Franklin-Bold.woff2);
+							  }
+							  @font-face {
+								font-family: Franklin;
+								font-weight: 300;
+								font-display: fallback;
+								src: url(https://www.washingtonpost.com/wp-stat/assets/fonts/ITC_Franklin-Light.woff2);
+								unicode-range: U+a, U+20-29, U+2c-5b, U+5d, U+5f, U+61-7d, U+a0, U+a9, U+c9,
+								  U+e0-e3, U+e7, U+e9, U+ea, U+ed, U+f1, U+f3-f5, U+fa, U+2009, U+2013,
+								  U+2014, U+2018, U+2019, U+201c, U+201d, U+2026;
+							  }`,
+            }}
           />
           <link
             rel="apple-touch-icon"
@@ -31,28 +82,13 @@ class CustomDocument extends Document {
           />
           <link
             rel="icon"
-            href="/favicon.ico"
+            href="https://www.washingtonpost.com/wp-stat/assets/favicons/favicon.svg"
           />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-          />
-          <meta
-            name="theme-color"
-            content="#111827"
-          />
+          <meta name="theme-color" content="#111827" />
         </Head>
         <body>
-        <Main />
-        <NextScript />
+          <Main />
+          <NextScript />
         </body>
       </Html>
     );
@@ -64,14 +100,10 @@ CustomDocument.getInitialProps = async (ctx) => {
   const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
-  ctx.renderPage = () => originalRenderPage({
-    enhanceApp: (App) => (props) => (
-      <App
-        emotionCache={cache}
-        {...props}
-      />
-    )
-  });
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
+    });
 
   const initialProps = await Document.getInitialProps(ctx);
   const emotionStyles = extractCriticalToChunks(initialProps.html);
@@ -86,7 +118,7 @@ CustomDocument.getInitialProps = async (ctx) => {
 
   return {
     ...initialProps,
-    styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags]
+    styles: [...Children.toArray(initialProps.styles), ...emotionStyleTags],
   };
 };
 
