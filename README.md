@@ -1,75 +1,96 @@
-# Site front end starter
+## [Material Kit - React](https://material-kit-react.devias.io/) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=%F0%9F%9A%A8Devias%20Freebie%20Alert%20-%20An%20awesome%20ready-to-use%20register%20page%20made%20with%20%23material%20%23react%0D%0Ahttps%3A%2F%2Fdevias.io%20%23createreactapp%20%23devias%20%23material%20%23freebie%20%40devias-io)
 
-This is an official starter turborepo.
+![license](https://img.shields.io/badge/license-MIT-blue.svg)
 
-## What's inside?
+[![Material Kit - React](https://github.com/devias-io/material-kit-react/blob/main/public/static/thumbnail.png)](https://material-kit-react.devias.io/)
 
-This turborepo includes the following packages/apps:
+> Free React Admin Dashboard made with [MUI's](https://mui.com/?ref=devias-io) components, [React](https://reactjs.org/?ref=devias-io) and of course [Next.js](https://github.com/vercel/next.js/?ref=devias-io) to boost your app development process!
 
-### Apps and Packages
+## Demo
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- [Dashboard Page](https://material-kit-react.devias.io)
+- [Users Page](https://material-kit-react.devias.io/customers)
+- [Products Page](https://material-kit-react.devias.io/products)
+- [Register Page](https://material-kit-react.devias.io/register)
+- [Login Page](https://material-kit-react.devias.io/login)
+- [Account Page](https://material-kit-react.devias.io/account)
+- [Settings Page](https://material-kit-react.devias.io/settings)
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Free Figma Community File
+ - [Duplicate File](https://www.figma.com/community/file/1039837897183395483/Devias-Dashboard-Design-Library-Kit)
 
-### Utilities
+## Upgrade to PRO Version
 
-This turborepo has some additional tools already setup for you:
+We also have a pro version of this product which bundles even more pages and components if you want to save more time and design efforts :)
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+| Free Version (this one)  | [Material Kit Pro - React](https://material-ui.com/store/items/devias-kit-pro/) |
+| ------------------------ | :----------------------------------------------------------- |
+| **7** Demo Pages         | **40+** demo pages
+| -                        | ✔ Dark & light mode
+| -                        | ✔ Authentication with *Amplify**, **Auth0**, **JWT** and **Firebase**
+| -                        | ✔ TypeScript version - for Standard Plus and Extended license
+| -                        | ✔ Design files (sketch & figma) - for Standard Plus and Extended license
+| -                        | ✔ Complete users flows
 
-## Setup
+## Quick start
 
-### Build
+- [Download from Github](https://github.com/devias-io/material-kit-react/archive/master.zip) or [Download from Devias](https://devias.io/products/material-kit-react) or clone the repo: `git clone https://github.com/devias-io/material-kit-react.git`
 
-To build all apps and packages, run the following command:
+- Make sure your NodeJS and npm versions are up to date for `React 17`
 
-```
-cd site-frontend-starter
-npm run build
-```
+- Install dependencies: `npm install` or `yarn`
 
-### Develop
+- Start the server: `npm run dev` or `yarn dev`
 
-To develop all apps and packages, run the following command:
+- Views are on: `localhost:3000`
 
-```
-cd site-frontend-starter
-npm run dev
-```
+## File Structure
 
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching (Beta) you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+Within the download you'll find the following directories and files:
 
 ```
-cd my-turborepo
-npx turbo login
+material-kit-react
+
+┌── .eslintrc.json
+├── .gitignore
+├── CHANGELOG.md
+├── jsconfig.json
+├── LICENSE.md
+├── package.json
+├── README.md
+├── public
+└── src
+	├── __mocks__
+	├── components
+	├── icons
+	├── theme
+	├── utils
+	└── pages
+		├── 404.js
+		├── _app.js
+		├── _document.js
+		├── account.js
+		├── customers.js
+		├── index.js
+		├── login.js
+		├── products.js
+		├── register.js
+		└── settings.js
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Resources
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+- More freebies like this one: <https://devias.io>
 
-```
-npx turbo link
-```
+## Reporting Issues:
 
-## Useful Links
+- [Github Issues Page](https://github.com/devias-io/react-material-dashboard/issues?ref=devias-io)
 
-Learn more about the power of Turborepo:
+## License
 
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching (Beta)](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+- Licensed under MIT (https://github.com/devias-io/react-material-dashboard/blob/master/LICENSE.md)
+
+## Contact Us
+
+- Email Us: support@deviasio.zendesk.com
+- [Follow us on Instagram](https://www.instagram.com/deviasio/)
