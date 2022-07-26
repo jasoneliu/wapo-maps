@@ -21,10 +21,6 @@ export const DashboardSidebar = (props: DashboardSidebarProps) => {
       if (!router.isReady) {
         return;
       }
-
-      if (open) {
-        onClose?.();
-      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [router.asPath]
@@ -93,14 +89,6 @@ export const DashboardSidebar = (props: DashboardSidebarProps) => {
             border: `2px solid ${theme.palette.faint}`,
             borderRadius: '5px',
           },
-          // '&::-webkit-scrollbar-track': {
-          //   background: 'blue',
-          // },
-          // *::-webkit-scrollbar-thumb {
-          //   background-color: blue;
-          //   border-radius: 20px;
-          //   border: 3px solid orange;
-          // }
         },
       }}
       sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
