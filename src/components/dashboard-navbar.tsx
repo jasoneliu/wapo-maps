@@ -7,6 +7,7 @@ import {
   IconButton,
   Toolbar,
   Tooltip,
+  Container
 } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,6 +19,7 @@ import WashingtonPost from '@washingtonpost/wpds-assets/asset/washington-post';
 import { InputText } from '@washingtonpost/wpds-input-text';
 import { Icon } from '@washingtonpost/wpds-icon';
 import Search from "@washingtonpost/wpds-assets/asset/search";
+import Menu from '@washingtonpost/wpds-assets/asset/menu';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -57,7 +59,7 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
           >
             <NavigateNext />
           </IconButton>
-          <div style={{ width: "100%" }}>
+          <div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
             <InputText css={{ color: 'black', flexGrow: "inherit"}} icon="right" label="Search" onKeyDown={(e: any) => {
                 if (e.key === "Enter") {
                   searchWebsite(e.target.value);
