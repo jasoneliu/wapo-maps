@@ -30,3 +30,12 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# Default ignored files
+/backend-server/shelf/
+/backend-server/workspace.xml
+# Editor-based HTTP Client requests
+/backend-server/httpRequests/
+# Datasource local storage ignored files
+/backend-server/dataSources/
+/backend-server/dataSources.local.xml
