@@ -3,19 +3,17 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
+import { Map } from './maps/maps';
 
-const DashboardLayoutRoot = styled('div')(({ theme }) => ({
+const DashboardLayoutRoot = styled('div')(() => ({
   display: 'flex',
   flex: '1 1 auto',
   maxWidth: '100%',
   paddingTop: 64,
-  [theme.breakpoints.up('lg')]: {
-    paddingLeft: 280,
-  },
 }));
 
-export const DashboardLayout = (props) => {
-  const { children } = props;
+export const DashboardLayout = () => {
+  // const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   return (
@@ -23,13 +21,10 @@ export const DashboardLayout = (props) => {
       <DashboardLayoutRoot>
         <Box
           sx={{
-            display: 'flex',
-            flex: '1 1 auto',
-            flexDirection: 'column',
             width: '100%',
           }}
         >
-          {children}
+          <Map />
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
