@@ -1,50 +1,51 @@
-import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  IconButton,
+  Toolbar,
+  Tooltip,
+} from '@mui/material';
+import NavigateNext from '@mui/icons-material/NavigateNext';
 import SearchIcon from '@mui/icons-material/Search';
+import { useTheme } from '@mui/material/styles';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 
-const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
+const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
-  boxShadow: theme.shadows[3]
+  boxShadow: theme.shadows[3],
 }));
 
-export const DashboardNavbar = (props) => {
+type DashboardNavbarProps = {
+  onSidebarOpen: () => void;
+};
+
+export const DashboardNavbar = (props: DashboardNavbarProps) => {
   const { onSidebarOpen, ...other } = props;
+  const theme = useTheme();
 
   return (
     <>
-      <DashboardNavbarRoot
-        sx={{
-          left: {
-            lg: 280
-          },
-          width: {
-            lg: 'calc(100% - 280px)'
-          }
-        }}
-        {...other}>
+      <DashboardNavbarRoot theme={theme} {...other}>
         <Toolbar
           disableGutters
           sx={{
             minHeight: 64,
             left: 0,
-            px: 2
+            px: 2,
           }}
         >
           <IconButton
             onClick={onSidebarOpen}
             sx={{
-              display: {
-                xs: 'inline-flex',
-                lg: 'none'
-              }
+              display: 'inline-flex',
             }}
           >
-            <MenuIcon fontSize="small" />
+            <NavigateNext />
           </IconButton>
           <Tooltip title="Search">
             <IconButton sx={{ ml: 1 }}>
@@ -59,11 +60,7 @@ export const DashboardNavbar = (props) => {
           </Tooltip>
           <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
+              <Badge badgeContent={4} color="primary" variant="dot">
                 <BellIcon fontSize="small" />
               </Badge>
             </IconButton>
@@ -72,7 +69,7 @@ export const DashboardNavbar = (props) => {
             sx={{
               height: 40,
               width: 40,
-              ml: 1
+              ml: 1,
             }}
             src="/static/images/avatars/avatar_1.png"
           >
@@ -82,8 +79,4 @@ export const DashboardNavbar = (props) => {
       </DashboardNavbarRoot>
     </>
   );
-};
-
-DashboardNavbar.propTypes = {
-  onSidebarOpen: PropTypes.func
 };

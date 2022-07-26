@@ -84,7 +84,7 @@ class CustomDocument extends Document {
             rel="icon"
             href="https://www.washingtonpost.com/wp-stat/assets/favicons/favicon.svg"
           />
-          <meta name="theme-color" content="#111827" />
+          <meta name="theme-color" content="rgba(240,240,240,1)" />
         </Head>
         <body>
           <Main />
