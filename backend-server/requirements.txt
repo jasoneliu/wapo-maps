@@ -1,0 +1,14 @@
+datadog
+decorator
+Flask
+Flask-HTTPAuth
+flask-cors
+locationtagger
+mock
+py
+pymongo[srv]
+pyparsing
+pytest
+pytz
+requests
+Werkzeug
