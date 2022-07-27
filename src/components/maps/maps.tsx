@@ -1,6 +1,7 @@
-import React from 'react';
+import { useState } from 'react';
 import { Avatar } from '@mui/material';
 import GoogleMapReact from 'google-map-react';
+import useReverseGeo from 'src/hooks/useReverseGeo';
 
 const Marker = ({ lat, lng, alt, image }) => (
   <div>
@@ -9,6 +10,12 @@ const Marker = ({ lat, lng, alt, image }) => (
 );
 
 export const Map = () => {
+  const [lat, setLat] = useState(38.9028771);
+  const [lng, setLng] = useState(-77.0308094);
+  const location = useReverseGeo(lat, lng);
+
+  console.log(location);
+
   const defaultProps = {
     center: {
       lat: 38.9028771,
@@ -22,6 +29,12 @@ export const Map = () => {
         bootstrapURLKeys={{ key: 'AIzaSyAUe57u_rCqLInDSAkBXhjMpCFTil_1NzY' }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        onClick={(e) => {
+          console.log(e.lat);
+          setLat(e.lat);
+          console.log(e.lng);
+          setLng(e.lng);
+        }}
       >
         <Marker
           lat={38.9028771}
