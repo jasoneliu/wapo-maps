@@ -1,19 +1,9 @@
 import styled from '@emotion/styled';
-import {
-  AppBar,
-  Avatar,
-  Badge,
-  Box,
-  IconButton,
-  Toolbar,
-  Tooltip,
-} from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
-import SearchIcon from '@mui/icons-material/Search';
+import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { useTheme } from '@mui/material/styles';
-import { Bell as BellIcon } from '../icons/bell';
-import { UserCircle as UserCircleIcon } from '../icons/user-circle';
-import { Users as UsersIcon } from '../icons/users';
+import WashingtonPost from '@washingtonpost/wpds-assets/asset/washington-post';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -21,11 +11,13 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
 }));
 
 type DashboardNavbarProps = {
+  isSidebarOpen: boolean;
   onSidebarOpen: () => void;
+  onSidebarClose: () => void;
 };
 
 export const DashboardNavbar = (props: DashboardNavbarProps) => {
-  const { onSidebarOpen, ...other } = props;
+  const { isSidebarOpen, onSidebarOpen, onSidebarClose, ...other } = props;
   const theme = useTheme();
 
   return (
@@ -37,44 +29,38 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
             minHeight: 64,
             left: 0,
             px: 2,
+            backgroundColor: 'primary.main',
+            color: 'secondary.main',
+            justifyContent: 'space-between',
           }}
         >
           <IconButton
-            onClick={onSidebarOpen}
+            onClick={isSidebarOpen ? onSidebarClose : onSidebarOpen}
             sx={{
               display: 'inline-flex',
+              color: 'secondary.main',
             }}
           >
-            <NavigateNext />
+            {isSidebarOpen ? <NavigateBefore /> : <NavigateNext />}
           </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge badgeContent={4} color="primary" variant="dot">
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          <Avatar
+          <Box
             sx={{
-              height: 40,
-              width: 40,
-              ml: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              textAlign: 'center',
             }}
-            src="/static/images/avatars/avatar_1.png"
           >
-            <UserCircleIcon fontSize="small" />
-          </Avatar>
+            <WashingtonPost width={188} />
+            <Box
+              sx={{
+                fontSize: '0.75rem',
+                fontStyle: 'italic',
+              }}
+            >
+              Democracy Dies in Darkness
+            </Box>
+          </Box>
+          <Box sx={{ width: '40px', height: '40px' }} />
         </Toolbar>
       </DashboardNavbarRoot>
     </>
