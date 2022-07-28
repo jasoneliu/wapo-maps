@@ -23,7 +23,9 @@ def index():
 def favicon():
     return '', 404
 
-
+# /location and /topic
+# ?country=United%20States&state=California
+# we'll give them a dropdown for different states
 @app.route('/search')
 def search_entities():
     query = request.args.get("query")
@@ -32,6 +34,7 @@ def search_entities():
     output = []
     for document in results["documents"]:
         content_url = document["contenturl"]
+        # going to make it collect all articles when the server starts, and it will periodically update the information
         content_response = requests.get(f'https://rainbowapi-a.wpdigital.net/rainbow-data-service/rainbow/content-by-url.json?platform=iphoneclassic&url={content_url}')
         try:
             items = content_response.json()["items"]
