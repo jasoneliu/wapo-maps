@@ -1,9 +1,10 @@
 import React from 'react';
-import Card, { CardProps } from './card';
+import Card from './card';
 import Divider from './divider';
+import { Article } from 'src/types';
 
 type CardListProps = {
-  cards: CardProps[];
+  cards: Article[];
 };
 
 const CardList = ({ cards }: CardListProps) => {
