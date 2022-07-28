@@ -52,18 +52,6 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
           >
             {isSidebarOpen ? <NavigateBefore /> : <NavigateNext />}
           </IconButton>
-          <div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
-            <InputText css={{ color: 'black', flexGrow: "inherit"}} icon="right" label="Search" onKeyDown={(e: any) => {
-                if (e.key === "Enter") {
-                  searchWebsite(e.target.value);
-                }
-              }}
-              onButtonIconClick={(e: any) => searchWebsite(e.target.value)} id={''} name={''}>
-              <Icon label="">
-                <Search />
-              </Icon>
-            </InputText>
-          </div>
           <Box
             sx={{
               display: 'flex',
@@ -81,6 +69,19 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
               Democracy Dies in Darkness
             </Box>
           </Box>
+          <div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
+            <InputText css={{ color: 'black', flexGrow: "inherit"}} icon="right" label="Search" onKeyDown={(e: any) => {
+                if (e.key === "Enter") {
+                  searchWebsite(e.target.value);
+                }
+              }}
+              onButtonIconClick={(e: any) => searchWebsite(e.target.value)} id={''} name={''}>
+              <Icon label="">
+                <Search />
+              </Icon>
+            </InputText>
+          </div>
+
           <Box sx={{ width: '40px', height: '40px' }} />
         </Toolbar>
       </DashboardNavbarRoot>
