@@ -4,9 +4,6 @@ import NavigateNext from '@mui/icons-material/NavigateNext';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { useTheme } from '@mui/material/styles';
 import WashingtonPost from '@washingtonpost/wpds-assets/asset/washington-post';
-import { InputText } from '@washingtonpost/wpds-ui-kit';
-import { Icon } from '@washingtonpost/wpds-ui-kit';
-import { Search } from '@washingtonpost/wpds-assets';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -22,12 +19,6 @@ type DashboardNavbarProps = {
 export const DashboardNavbar = (props: DashboardNavbarProps) => {
   const { isSidebarOpen, onSidebarOpen, onSidebarClose, ...other } = props;
   const theme = useTheme();
-
-  const searchWebsite = (innerText: string) => {
-    fetch('http://10.4.7.15:5000/search?query=' + innerText).then(response => response.json()).then(data => {
-      console.log(data)
-    }).catch(error => console.log(error))
-  }
 
   return (
     <>
@@ -69,19 +60,6 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
               Democracy Dies in Darkness
             </Box>
           </Box>
-          <div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
-            <InputText css={{ color: 'black', flexGrow: "inherit"}} icon="right" label="Search" onKeyDown={(e: any) => {
-                if (e.key === "Enter") {
-                  searchWebsite(e.target.value);
-                }
-              }}
-              onButtonIconClick={(e: any) => searchWebsite(e.target.value)} id={''} name={''}>
-              <Icon label="">
-                <Search />
-              </Icon>
-            </InputText>
-          </div>
-
           <Box sx={{ width: '40px', height: '40px' }} />
         </Toolbar>
       </DashboardNavbarRoot>
