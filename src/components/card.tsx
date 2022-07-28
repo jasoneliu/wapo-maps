@@ -1,15 +1,6 @@
 import React from 'react';
 import useWindowDimensions from 'src/hooks/useWindowDimensions';
-
-export type CardProps = {
-  headline: string;
-  subhead: string;
-  section: string;
-  byline: string;
-  date: string;
-  imageUrl: string;
-  articleUrl: string;
-};
+import { Article } from 'src/types';
 
 const Card = ({
   headline,
@@ -19,7 +10,7 @@ const Card = ({
   date,
   imageUrl,
   articleUrl,
-}: CardProps) => {
+}: Article) => {
   const dimensions = useWindowDimensions();
 
   const SmallCard = () => (

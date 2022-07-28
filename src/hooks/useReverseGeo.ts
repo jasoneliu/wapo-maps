@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Location } from 'src/types';
 
 const maps = axios.create({
   baseURL: `https://maps.googleapis.com/maps/api/`,
-  params: { key: 'AIzaSyAUe57u_rCqLInDSAkBXhjMpCFTil_1NzY' },
+  params: { key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY },
 });
 
-export default function useReverseGeo(lat: number, lng: number): string[] {
-  const [location, setLocation] = useState<string[]>([]);
+export default function useReverseGeo(lat: number, lng: number): Location {
+  let initLocation: Location = {
+    country: '',
+    state: '',
+    district: '',
+    locality: '',
+  };
+  const [location, setLocation] = useState<Location>(initLocation);
 
   useEffect(() => {
     async function getData(lat: number, lng: number): Promise<void> {
@@ -37,7 +44,13 @@ export default function useReverseGeo(lat: number, lng: number): string[] {
         }
       });
 
-      setLocation([country, state, district, locality]);
+      let location: Location = {
+        country: country,
+        state: state,
+        district: district,
+        locality: locality,
+      };
+      setLocation(location);
     }
 
     getData(lat, lng);

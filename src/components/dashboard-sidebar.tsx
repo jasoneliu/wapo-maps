@@ -5,14 +5,45 @@ import CardList from './card-list';
 import { IconButton } from '@mui/material';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import articles from '../__mocks__/articles';
+import { Location } from 'src/types';
 
-type DashboardSidebarProps = {
-  onClose: () => void;
-  open: boolean;
+const getLocationString = (location: Location) => {
+  console.log(location);
+  if (!location) {
+    return 'Unknown Location';
+  }
+
+  let locationString = '';
+  if (location.locality) {
+    locationString += location.locality + ', ';
+  }
+  if (location.district) {
+    locationString += location.district + ', ';
+  }
+  if (location.state) {
+    locationString += location.state + ', ';
+  }
+  if (location.country) {
+    locationString += location.country + ', ';
+  }
+
+  if (locationString === '') {
+    return 'Unknown Location';
+  }
+  return `${locationString.slice(0, -2)}`;
 };
 
-export const DashboardSidebar = (props: DashboardSidebarProps) => {
-  const { open, onClose } = props;
+type DashboardSidebarProps = {
+  location: Location;
+  open: boolean;
+  onClose: () => void;
+};
+
+export const DashboardSidebar = ({
+  location,
+  open,
+  onClose,
+}: DashboardSidebarProps) => {
   const router = useRouter();
   const theme = useTheme();
 
@@ -47,10 +78,17 @@ export const DashboardSidebar = (props: DashboardSidebarProps) => {
             paddingTop: '2rem',
             paddingBottom: '1rem',
             backgroundColor: 'secondary.main',
+            // @ts-ignore
+            borderBottom: '1px solid var(--color-ui-gray-light)',
             zIndex: (theme) => theme.zIndex.appBar + 100,
           }}
         >
-          <Box className="font--headline font-md3 font-bold">Articles</Box>
+          <Box>
+            <Box className="font--headline font-md3 font-bold">Articles</Box>
+            <Box className="font-body mb-xxs font-light font-xxs antialiased gray-dark">
+              {getLocationString(location)}
+            </Box>
+          </Box>
           <Box sx={{ marginTop: '-1rem', marginRight: '-0.5rem' }}>
             <IconButton onClick={onClose}>
               <NavigateBefore />

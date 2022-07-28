@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
 import { Map } from './maps/maps';
+import useReverseGeo from 'src/hooks/useReverseGeo';
 
 const DashboardLayoutRoot = styled('div')(() => ({
   display: 'flex',
@@ -13,7 +14,14 @@ const DashboardLayoutRoot = styled('div')(() => ({
 }));
 
 export const DashboardLayout = () => {
+  const [lat, setLat] = useState(38.9028771);
+  const [lng, setLng] = useState(-77.0308094);
+  const location = useReverseGeo(lat, lng);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    setSidebarOpen(true);
+  }, [lat, lng]);
 
   return (
     <>
@@ -23,7 +31,7 @@ export const DashboardLayout = () => {
             width: '100%',
           }}
         >
-          <Map />
+          <Map lat={lat} lng={lng} setLat={setLat} setLng={setLng} />
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar
@@ -32,8 +40,9 @@ export const DashboardLayout = () => {
         onSidebarClose={() => setSidebarOpen(false)}
       />
       <DashboardSidebar
-        onClose={() => setSidebarOpen(false)}
+        location={location}
         open={isSidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
     </>
   );
