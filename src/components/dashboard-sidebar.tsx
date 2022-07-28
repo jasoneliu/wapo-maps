@@ -46,7 +46,7 @@ export const DashboardSidebar = (props: DashboardSidebarProps) => {
             top: '0',
             paddingTop: '2rem',
             paddingBottom: '1rem',
-            backgroundColor: 'faint',
+            backgroundColor: 'secondary.main',
             zIndex: (theme) => theme.zIndex.appBar + 100,
           }}
         >
@@ -71,22 +71,23 @@ export const DashboardSidebar = (props: DashboardSidebarProps) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: 'faint',
-          width: 800,
+          backgroundColor: 'secondary.main',
+          top: 64,
+          height: 'calc(100% - 64px)',
+          width: '40%',
           // @ts-ignore
-          scrollbarColor: `${theme.palette.gray200} ${theme.palette.faint}`,
+          scrollbarColor: `${theme.palette.gray200} ${theme.palette.secondary.main}`,
           scrollbarWidth: 'thin',
           '&::-webkit-scrollbar': {
             width: '10px',
             padding: '3px',
           },
           '&::-webkit-scrollbar-track': {
-            backgroundColor: 'faint',
+            backgroundColor: 'secondary.main',
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: 'gray200',
-            // @ts-ignore
-            border: `2px solid ${theme.palette.faint}`,
+            border: `2px solid ${theme.palette.secondary.main}`,
             borderRadius: '5px',
           },
         },

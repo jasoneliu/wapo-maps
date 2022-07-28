@@ -13,7 +13,6 @@ const DashboardLayoutRoot = styled('div')(() => ({
 }));
 
 export const DashboardLayout = () => {
-  // const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 
   return (
@@ -27,7 +26,11 @@ export const DashboardLayout = () => {
           <Map />
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(true)} />
+      <DashboardNavbar
+        isSidebarOpen={isSidebarOpen}
+        onSidebarOpen={() => setSidebarOpen(true)}
+        onSidebarClose={() => setSidebarOpen(false)}
+      />
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}

@@ -1,25 +1,12 @@
 import styled from '@emotion/styled';
-import {
-  AppBar,
-  Avatar,
-  Badge,
-  Box,
-  IconButton,
-  Toolbar,
-  Tooltip,
-  Container
-} from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
-import SearchIcon from '@mui/icons-material/Search';
+import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { useTheme } from '@mui/material/styles';
-import { Bell as BellIcon } from '../icons/bell';
-import { UserCircle as UserCircleIcon } from '../icons/user-circle';
-import { Users as UsersIcon } from '../icons/users';
 import WashingtonPost from '@washingtonpost/wpds-assets/asset/washington-post';
-import { InputText } from '@washingtonpost/wpds-input-text';
-import { Icon } from '@washingtonpost/wpds-icon';
-import Search from "@washingtonpost/wpds-assets/asset/search";
-import Menu from '@washingtonpost/wpds-assets/asset/menu';
+import { InputText } from '@washingtonpost/wpds-ui-kit';
+import { Icon } from '@washingtonpost/wpds-ui-kit';
+import { Search } from '@washingtonpost/wpds-assets';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -27,11 +14,13 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
 }));
 
 type DashboardNavbarProps = {
+  isSidebarOpen: boolean;
   onSidebarOpen: () => void;
+  onSidebarClose: () => void;
 };
 
 export const DashboardNavbar = (props: DashboardNavbarProps) => {
-  const { onSidebarOpen, ...other } = props;
+  const { isSidebarOpen, onSidebarOpen, onSidebarClose, ...other } = props;
   const theme = useTheme();
 
   const searchWebsite = (innerText: string) => {
@@ -49,15 +38,19 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
             minHeight: 64,
             left: 0,
             px: 2,
+            backgroundColor: 'primary.main',
+            color: 'secondary.main',
+            justifyContent: 'space-between',
           }}
         >
           <IconButton
-            onClick={onSidebarOpen}
+            onClick={isSidebarOpen ? onSidebarClose : onSidebarOpen}
             sx={{
               display: 'inline-flex',
+              color: 'secondary.main',
             }}
           >
-            <NavigateNext />
+            {isSidebarOpen ? <NavigateBefore /> : <NavigateNext />}
           </IconButton>
           <div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
             <InputText css={{ color: 'black', flexGrow: "inherit"}} icon="right" label="Search" onKeyDown={(e: any) => {
@@ -71,6 +64,24 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
               </Icon>
             </InputText>
           </div>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              textAlign: 'center',
+            }}
+          >
+            <WashingtonPost width={188} />
+            <Box
+              sx={{
+                fontSize: '0.75rem',
+                fontStyle: 'italic',
+              }}
+            >
+              Democracy Dies in Darkness
+            </Box>
+          </Box>
+          <Box sx={{ width: '40px', height: '40px' }} />
         </Toolbar>
       </DashboardNavbarRoot>
     </>
