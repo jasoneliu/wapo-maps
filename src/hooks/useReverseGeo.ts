@@ -29,20 +29,22 @@ export default function useReverseGeo(lat: number, lng: number): Location {
         district = '',
         locality = '';
 
-      result.results[0].address_components.forEach((location) => {
-        if (location.types.includes('country')) {
-          country = location.long_name;
-        }
-        if (location.types.includes('administrative_area_level_1')) {
-          state = location.long_name;
-        }
-        if (location.types.includes('administrative_area_level_2')) {
-          district = location.long_name;
-        }
-        if (location.types.includes('locality')) {
-          locality = location.long_name;
-        }
-      });
+        result.results.forEach((addy) => {
+          addy.address_components.forEach((location) => {
+            if (location.types.includes('country')) {
+              country = location.long_name;
+            }
+            if (location.types.includes('administrative_area_level_1')) {
+              state = location.long_name;
+            }
+            if (location.types.includes('administrative_area_level_2')) {
+              district = location.long_name;
+            }
+            if (location.types.includes('locality')) {
+              locality = location.long_name;
+            }
+          })
+        })
 
       let location: Location = {
         country: country,

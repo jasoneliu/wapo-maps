@@ -14,15 +14,18 @@ export default function useGeo(address: string): number[] {
       const { data } = await maps.get('/geocode/json', {
         params: { address: `${address}` },
       });
-      // console.log(data);
+      console.log(data);
 
-      let lat: number = data.results.geometry.location.lat;
-      let lng: number = data.results.geometry.location.lng;
+      let lat: number = 0;
+      let lng: number = 0;
+
+      if (data.results.length>0) {
+        lat = data.results[0].geometry.location.lat;
+        lng = data.results[0].geometry.location.lng;
+      }
 
       if (lat && lng) {
         setLocation([lat, lng]);
-      } else {
-        setLocation([0, 0]);
       }
     }
 
