@@ -32,12 +32,22 @@ export const Map = ({ lat, lng, setLat, setLng }: MapProps) => {
     zoom: 10,
   };
 
+  const heatMapData = {
+    positions: [{lat: 38.9028771, lng: -77.0308094, weight: Math.floor(Math.random() * Math.floor(5)) }],
+    options: {
+      radius: 40,
+      opacity: 0.7
+    }
+  }
+
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}
+        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY, libraries: ['visualization'] }}
         defaultCenter={defaultProps.center}
+        yesIWantToUseGoogleMapApiInternals
         defaultZoom={defaultProps.zoom}
+        heatmap={heatMapData}
         onClick={(e) => {
           setLat(e.lat);
           setLng(e.lng);
