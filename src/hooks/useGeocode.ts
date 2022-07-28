@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import googleMapKey from './getKey';
 import axios from 'axios';
 
 const maps = axios.create({
   baseURL: `https://maps.googleapis.com/maps/api/`,
-  params: { key: 'AIzaSyAUe57u_rCqLInDSAkBXhjMpCFTil_1NzY' },
+  params: { key: googleMapKey() },
 });
 
 export default function useGeo(address: string): number[] {

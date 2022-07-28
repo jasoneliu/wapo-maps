@@ -19,6 +19,6 @@ const Dashboard = () => (
   </>
 );
 
-Dashboard.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+Dashboard.getLayout = () => <DashboardLayout />
 
 export default Dashboard;
