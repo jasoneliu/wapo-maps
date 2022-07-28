@@ -3,7 +3,8 @@ import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { useTheme } from '@mui/material/styles';
-import WashingtonPost from '@washingtonpost/wpds-assets/asset/washington-post';
+import { InputText, Icon } from '@washingtonpost/wpds-ui-kit';
+import { Search, WashingtonPost } from '@washingtonpost/wpds-assets';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -20,6 +21,15 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
   const { isSidebarOpen, onSidebarOpen, onSidebarClose, ...other } = props;
   const theme = useTheme();
 
+  const searchWebsite = (innerText: string) => {
+    fetch('http://10.4.7.15:5000/search?query=' + innerText)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       <DashboardNavbarRoot theme={theme} {...other}>
@@ -34,15 +44,34 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
             justifyContent: 'space-between',
           }}
         >
-          <IconButton
-            onClick={isSidebarOpen ? onSidebarClose : onSidebarOpen}
-            sx={{
-              display: 'inline-flex',
-              color: 'secondary.main',
-            }}
-          >
-            {isSidebarOpen ? <NavigateBefore /> : <NavigateNext />}
-          </IconButton>
+          <Box sx={{ display: 'flex', color: 'primary.main', gap: '1rem' }}>
+            <IconButton
+              onClick={isSidebarOpen ? onSidebarClose : onSidebarOpen}
+              sx={{
+                display: 'inline-flex',
+                color: 'secondary.main',
+              }}
+            >
+              {isSidebarOpen ? <NavigateBefore /> : <NavigateNext />}
+            </IconButton>
+            <InputText
+              icon="right"
+              label="Search"
+              type="search"
+              id="search"
+              name="search"
+              onKeyDown={(e: any) => {
+                if (e.key === 'Enter') {
+                  searchWebsite(e.target.value);
+                }
+              }}
+              onButtonIconClick={(e: any) => searchWebsite(e.target.value)}
+            >
+              <Icon label="search">
+                <Search />
+              </Icon>
+            </InputText>
+          </Box>
           <Box
             sx={{
               display: 'flex',
@@ -60,7 +89,7 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
               Democracy Dies in Darkness
             </Box>
           </Box>
-          <Box sx={{ width: '40px', height: '40px' }} />
+          <Box sx={{ width: '260.333px', height: '40px' }} />
         </Toolbar>
       </DashboardNavbarRoot>
     </>
