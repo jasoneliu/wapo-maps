@@ -4,8 +4,8 @@ import { Box, Drawer, useTheme } from '@mui/material';
 import CardList from './card-list';
 import { IconButton } from '@mui/material';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
-import articles from '../__mocks__/articles';
 import { Location } from 'src/types';
+import useArticles from 'src/hooks/useArticles';
 
 const getLocationString = (location: Location) => {
   console.log(location);
@@ -46,6 +46,7 @@ export const DashboardSidebar = ({
 }: DashboardSidebarProps) => {
   const router = useRouter();
   const theme = useTheme();
+  const articles = useArticles(location);
 
   useEffect(
     () => {

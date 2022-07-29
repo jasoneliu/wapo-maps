@@ -25,13 +25,14 @@ const Card = ({
               <a
                 className="font-sm font--magazine-headline font-bold mb-sm black"
                 href={articleUrl}
+                target="_blank"
               >
                 {headline}
               </a>
             </div>
           </div>
           <div className="h-100 flex flex-column self-center">
-            <a className="result-image-link" href={articleUrl}>
+            <a className="result-image-link" href={articleUrl} target="_blank">
               <figure className="relative result-image-md">
                 <div
                   className="font-0 filter transition"
