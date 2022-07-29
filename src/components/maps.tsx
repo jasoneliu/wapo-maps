@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import GoogleMapReact from 'google-map-react';
 import PlaceIcon from '@mui/icons-material/Place';
-import useHeatmap from '../../hooks/useHeatmap';
+import useHeatmap from '../hooks/useHeatmap';
 
 type MapProps = {
   lat: number;
@@ -34,7 +34,7 @@ export const Map = ({ lat, lng, setLat, setLng }: MapProps) => {
   };
 
   const heatMapData = {
-    positions: useHeatmap(),
+    positions: useHeatmap(['Gonzaga', 'Washington', 'Sardis', 'Inca', 'Falls Church', 'Atlanta', 'Canada', 'Hendersonville', 'Gram', 'Brentwood', 'Brussels', 'Nine', 'Lima', 'Puerto Rico', 'Ryan', 'Asheville', 'Baltimore', 'Sanchez', 'Louisiana', 'Decatur', 'Okay', 'House', 'Peru']),
     options: {
       radius: 40,
       opacity: 0.7

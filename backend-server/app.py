@@ -4,7 +4,6 @@ from flask import Flask, jsonify, request
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
 import locationtagger
 import nltk
-import spacy
 from flask_cors import CORS, cross_origin
 import json
 
@@ -31,78 +30,9 @@ def find_values(id, json_repr):
     return results
 
 
-with open('dummy.json') as file:
-    latest_stories = json.load(file)
-links_list = find_values('link', json.dumps(latest_stories))
-
-
-class Article:
-    def __init__(self, title, url, countries=None, regions=None, cities=None):
-        self.title = title
-        self.url = url
-        self.countries = countries
-        self.regions = regions
-        self.cities = cities
-
-
 @app.route('/')
 def index():
     return '', 200
-
-
-@app.route('/latest')
-def latest():
-    seen = set()
-    out = []
-    for link in links_list:
-        if link['url'] not in seen:
-            seen.add(link['url'])
-            out.append(link)
-    return jsonify({'articles': list(out)})
-
-
-@app.route('/favicon.ico')
-def favicon():
-    return '', 404
-
-
-@app.route('/articles')
-def search_articles():
-    country = request.args.get('country')
-    region = request.args.get('region')
-    city = request.args.get('city')
-    limit = request.args.get('limit')
-    out = set()
-    trove = filter(lambda a: 'type' in a and a['type'] == 'article', find_values('link', json.dumps(latest_stories)))
-    trove = list(trove)
-    upper_bound = len(trove)
-    try:
-        limit = int(limit)
-        upper_bound = limit
-    except TypeError:
-        print('wrong type')
-
-    for article in trove[:upper_bound]:
-        if article['url'] not in out:
-            content_response = requests.get(f'https://rainbowapi-a.wpdigital.net/rainbow-data-service/rainbow/content-by-url.json?platform=iphoneclassic&url={article["url"]}')
-            try:
-                items = content_response.json()["items"]
-                paragraphs = [x['content'] for x in items if
-                              'content' in x and 'type' in x and x['type'] == 'sanitized_html' or x['type'] == 'title']
-                entities = locationtagger.find_locations(text='\n'.join(paragraphs))
-                lowercased_countries = map(lambda c: c.lower(), entities.countries)
-                lowercased_regions = map(lambda c: c.lower(), entities.regions)
-                lowercased_cities = map(lambda c: c.lower(), entities.cities)
-                if str(country).lower() in lowercased_countries or str(region).lower() in lowercased_regions or str(city).lower() in lowercased_cities:
-                    out.add(article['url'])
-            except KeyError:
-                print("No items")
-                continue
-            except TypeError:
-                print("nothing")
-                continue
-    return jsonify({'links': list(out)})
-
 
 @app.route('/locations')
 def search_entities():
@@ -116,7 +46,7 @@ def search_entities():
         upper_bound = limit
     except TypeError:
         print('wrong type')
-    output = {'countries': set(), 'regions': set(), 'cities': set()}
+    output = {'cities': set()}
 
     for document in results["documents"][:upper_bound]:
         content_url = document["contenturl"]
@@ -125,8 +55,6 @@ def search_entities():
             items = content_response.json()["items"]
             paragraphs = [x["content"] for x in items if x["type"] == "sanitized_html" or x["type"] == "title"]
             entities = locationtagger.find_locations(text='\n'.join(paragraphs))
-            output['countries'] = output['countries'].union(entities.countries)
-            output['regions'] = output['regions'].union(entities.regions)
             output['cities'] = output['cities'].union(entities.cities)
         except KeyError:
             print("No items")

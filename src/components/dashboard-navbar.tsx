@@ -3,8 +3,8 @@ import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { useTheme } from '@mui/material/styles';
-import { InputText, Icon } from '@washingtonpost/wpds-ui-kit';
-import { Search, WashingtonPost } from '@washingtonpost/wpds-assets';
+import { InputText } from '@washingtonpost/wpds-ui-kit';
+import { WashingtonPost } from '@washingtonpost/wpds-assets';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -25,7 +25,7 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
     fetch('http://localhost:5000/locations?topic=' + innerText)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.cities);
       })
       .catch((error) => console.log(error));
   };
@@ -55,9 +55,7 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
               {isSidebarOpen ? <NavigateBefore /> : <NavigateNext />}
             </IconButton>
             <InputText
-              icon="right"
               label="Search"
-              type="search"
               id="search"
               name="search"
               onKeyDown={(e: any) => {
@@ -65,12 +63,7 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
                   searchWebsite(e.target.value);
                 }
               }}
-              onButtonIconClick={(e: any) => searchWebsite(e.target.value)}
-            >
-              <Icon label="search">
-                <Search />
-              </Icon>
-            </InputText>
+            />
           </Box>
           <Box
             sx={{

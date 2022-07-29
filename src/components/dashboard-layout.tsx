@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './dashboard-navbar';
 import { DashboardSidebar } from './dashboard-sidebar';
-import { Map } from './maps/maps';
+import { Map } from './maps';
 import useReverseGeo from 'src/hooks/useReverseGeo';
 
 const DashboardLayoutRoot = styled('div')(() => ({
