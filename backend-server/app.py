@@ -35,6 +35,7 @@ with open('dummy.json') as file:
     latest_stories = json.load(file)
 links_list = find_values('link', json.dumps(latest_stories))
 
+
 class Article:
     def __init__(self, title, url, countries=None, regions=None, cities=None):
         self.title = title
@@ -65,63 +66,29 @@ def favicon():
     return '', 404
 
 
-@app.route('/country')
-def search_articles_by_country():
-    return '', 200
-
-
-@app.route('/latest')
-def get_latest():
-    return jsonify({'links': top_stories()})
-
-# /location and /topic
-# ?country=United%20States&state=California
-# we'll give them a dropdown for different states
-# query name=
-# locations for topic
-# topics for location
-
-# @app.route('/city')
-# def search_cities():
-#     latest_stories = top_stories()
-#     print(latest_stories)
-#     # name = request.args.get('name')
-#     out = []
-#     stories = find_values('headlines', json.dumps(latest_stories))
-#     for article in latest_stories[:10]:
-#         content_url = article['url']
-#         content_response = requests.get(
-#             f'https://rainbowapi-a.wpdigital.net/rainbow-data-service/rainbow/content-by-url.json?platform=iphoneclassic&url={content_url}')
-#         try:
-#             items = content_response.json()["items"]
-#             paragraphs = [x['content'] for x in items if 'content' in x and 'type' in x and x['type'] == 'sanitized_html' or x['type'] == 'title']
-#             entities = locationtagger.find_locations(text='\n'.join(paragraphs))
-#             if len(entities.cities) > 0:
-#                 out.append(Article(None, content_url, entities.countries, entities.regions, entities.cities))
-#         except KeyError:
-#             print("No items")
-#             continue
-#         except TypeError:
-#             print("nothing")
-#             continue
-#
-#     return jsonify({'articles': [{'title': x.title, 'url': x.url, 'countries': x.countries, 'regions': x.regions, 'cities': x.cities} for x in out]})
-
 @app.route('/articles')
 def search_articles():
     country = request.args.get('country')
     region = request.args.get('region')
     city = request.args.get('city')
+    limit = request.args.get('limit')
     out = set()
     trove = filter(lambda a: 'type' in a and a['type'] == 'article', find_values('link', json.dumps(latest_stories)))
-    for article in list(trove)[:10]:
+    trove = list(trove)
+    upper_bound = len(trove)
+    try:
+        limit = int(limit)
+        upper_bound = limit
+    except TypeError:
+        print('wrong type')
+
+    for article in trove[:upper_bound]:
         if article['url'] not in out:
             content_response = requests.get(f'https://rainbowapi-a.wpdigital.net/rainbow-data-service/rainbow/content-by-url.json?platform=iphoneclassic&url={article["url"]}')
             try:
                 items = content_response.json()["items"]
                 paragraphs = [x['content'] for x in items if
                               'content' in x and 'type' in x and x['type'] == 'sanitized_html' or x['type'] == 'title']
-                print(paragraphs)
                 entities = locationtagger.find_locations(text='\n'.join(paragraphs))
                 lowercased_countries = map(lambda c: c.lower(), entities.countries)
                 lowercased_regions = map(lambda c: c.lower(), entities.regions)
@@ -136,13 +103,22 @@ def search_articles():
                 continue
     return jsonify({'links': list(out)})
 
+
 @app.route('/locations')
 def search_entities():
     topic = request.args.get('topic')
     response = requests.get(f'https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query={topic}')
     results = response.json()["results"]
+    limit = request.args.get('limit')
+    upper_bound = len(results)
+    try:
+        limit = int(limit)
+        upper_bound = limit
+    except TypeError:
+        print('wrong type')
     output = {'countries': set(), 'regions': set(), 'cities': set()}
-    for document in results["documents"]:
+
+    for document in results["documents"][:upper_bound]:
         content_url = document["contenturl"]
         content_response = requests.get(f'https://rainbowapi-a.wpdigital.net/rainbow-data-service/rainbow/content-by-url.json?platform=iphoneclassic&url={content_url}')
         try:
@@ -183,10 +159,4 @@ if __name__ == "__main__":
         nltk.download('averaged_perceptron_tagger')
         models_loaded = True
 
-    run_simple(
-        host,
-        port,
-        dispatcher,
-        use_reloader=use_reloader,
-        use_debugger=use_debugger,
-        use_evalex=use_evalex)
+    run_simple(host, port, dispatcher, use_reloader=use_reloader, use_debugger=use_debugger, use_evalex=use_evalex)
