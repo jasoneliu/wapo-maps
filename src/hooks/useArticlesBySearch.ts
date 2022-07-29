@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Article } from '../types';
-import { Location } from 'src/types';
 
 const getSection = (contenturl: string) => {
   return contenturl

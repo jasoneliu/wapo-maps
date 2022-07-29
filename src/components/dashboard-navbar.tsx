@@ -69,7 +69,7 @@ export const DashboardNavbar = ({
                   onSetModeSearch();
                 }
               }}
-              onButtonIconClick={(e: any) => {
+              onButtonIconClick={() => {
                 setSearch(currSearch);
                 onSetModeSearch();
               }}
