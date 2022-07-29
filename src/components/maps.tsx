@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import GoogleMapReact from 'google-map-react';
 import PlaceIcon from '@mui/icons-material/Place';
 import useHeatmap from '../hooks/useHeatmap';
+import heatspots from '../__mocks__/heatspots';
 
 type MapProps = {
   lat: number;
@@ -40,6 +41,15 @@ export const Map = ({
     zoom: 10,
   };
 
+  const positionHeat = useHeatmap(heatspots);
+  const heatMapData = {
+    positions: positionHeat,
+    options: {
+      radius: 30,
+      opacity: 0.7,
+    },
+  };
+
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <GoogleMapReact
@@ -50,6 +60,7 @@ export const Map = ({
         defaultCenter={defaultProps.center}
         yesIWantToUseGoogleMapApiInternals
         defaultZoom={defaultProps.zoom}
+        heatmap={heatMapData}
         onClick={(e) => {
           setLat(e.lat);
           setLng(e.lng);

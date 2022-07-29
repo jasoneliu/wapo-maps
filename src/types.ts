@@ -15,13 +15,8 @@ export type Location = {
   locality: string;
 };
 
-export type Coordinates = {
+export type Heatmap = {
   lat: number;
   lng: number;
-}
-
-export type Heatmap = {
-  lat: number,
-  lng: number,
-  weight: number,
-}
+  weight: number;
+};
