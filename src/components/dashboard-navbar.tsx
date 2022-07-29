@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import styled from '@emotion/styled';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
@@ -15,24 +16,22 @@ type DashboardNavbarProps = {
   isSidebarOpen: boolean;
   onSidebarOpen: () => void;
   onSidebarClose: () => void;
+  onSetModeSearch: () => void;
+  setSearch: Dispatch<SetStateAction<string>>;
 };
 
-export const DashboardNavbar = (props: DashboardNavbarProps) => {
-  const { isSidebarOpen, onSidebarOpen, onSidebarClose, ...other } = props;
+export const DashboardNavbar = ({
+  isSidebarOpen,
+  onSidebarOpen,
+  onSidebarClose,
+  onSetModeSearch,
+  setSearch,
+}: DashboardNavbarProps) => {
   const theme = useTheme();
-
-  const searchWebsite = (innerText: string) => {
-    fetch('http://localhost:5000/locations?topic=' + innerText)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.cities);
-      })
-      .catch((error) => console.log(error));
-  };
 
   return (
     <>
-      <DashboardNavbarRoot theme={theme} {...other}>
+      <DashboardNavbarRoot theme={theme}>
         <Toolbar
           disableGutters
           sx={{
@@ -60,7 +59,8 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
               name="search"
               onKeyDown={(e: any) => {
                 if (e.key === 'Enter') {
-                  searchWebsite(e.target.value);
+                  setSearch(e.target.value);
+                  onSetModeSearch();
                 }
               }}
             />

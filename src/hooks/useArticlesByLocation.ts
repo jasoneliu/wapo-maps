@@ -114,7 +114,7 @@ const formatDate = (timestamp: number) => {
   return formattedDate;
 };
 
-export default function useArticles(location: Location): Article[] {
+export default function useArticlesByLocation(location: Location): Article[] {
   const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {

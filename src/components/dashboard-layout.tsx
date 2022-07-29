@@ -14,10 +14,12 @@ const DashboardLayoutRoot = styled('div')(() => ({
 }));
 
 export const DashboardLayout = () => {
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [mode, setMode] = useState<'location' | 'search'>('location');
   const [lat, setLat] = useState(38.9028771);
   const [lng, setLng] = useState(-77.0308094);
   const location = useReverseGeo(lat, lng);
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     setSidebarOpen(true);
@@ -31,18 +33,28 @@ export const DashboardLayout = () => {
             width: '100%',
           }}
         >
-          <Map lat={lat} lng={lng} setLat={setLat} setLng={setLng} />
+          <Map
+            lat={lat}
+            lng={lng}
+            setLat={setLat}
+            setLng={setLng}
+            onSetModeLocation={() => setMode('location')}
+          />
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar
         isSidebarOpen={isSidebarOpen}
         onSidebarOpen={() => setSidebarOpen(true)}
         onSidebarClose={() => setSidebarOpen(false)}
+        onSetModeSearch={() => setMode('search')}
+        setSearch={setSearch}
       />
       <DashboardSidebar
         location={location}
+        search={search}
         open={isSidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        mode={mode}
       />
     </>
   );

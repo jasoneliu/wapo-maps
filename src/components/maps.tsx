@@ -8,6 +8,7 @@ type MapProps = {
   lng: number;
   setLat: Dispatch<SetStateAction<number>>;
   setLng: Dispatch<SetStateAction<number>>;
+  onSetModeLocation: () => void;
 };
 
 const Marker = ({ lat, lng }) => (
@@ -24,7 +25,13 @@ const Marker = ({ lat, lng }) => (
   </div>
 );
 
-export const Map = ({ lat, lng, setLat, setLng }: MapProps) => {
+export const Map = ({
+  lat,
+  lng,
+  setLat,
+  setLng,
+  onSetModeLocation,
+}: MapProps) => {
   const defaultProps = {
     center: {
       lat: 38.9028771,
@@ -34,17 +41,44 @@ export const Map = ({ lat, lng, setLat, setLng }: MapProps) => {
   };
 
   const heatMapData = {
-    positions: useHeatmap(['Gonzaga', 'Washington', 'Sardis', 'Inca', 'Falls Church', 'Atlanta', 'Canada', 'Hendersonville', 'Gram', 'Brentwood', 'Brussels', 'Nine', 'Lima', 'Puerto Rico', 'Ryan', 'Asheville', 'Baltimore', 'Sanchez', 'Louisiana', 'Decatur', 'Okay', 'House', 'Peru']),
+    positions: useHeatmap([
+      'Gonzaga',
+      'Washington',
+      'Sardis',
+      'Inca',
+      'Falls Church',
+      'Atlanta',
+      'Canada',
+      'Hendersonville',
+      'Gram',
+      'Brentwood',
+      'Brussels',
+      'Nine',
+      'Lima',
+      'Puerto Rico',
+      'Ryan',
+      'Asheville',
+      'Baltimore',
+      'Sanchez',
+      'Louisiana',
+      'Decatur',
+      'Okay',
+      'House',
+      'Peru',
+    ]),
     options: {
       radius: 40,
-      opacity: 0.7
-    }
-  }
+      opacity: 0.7,
+    },
+  };
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY, libraries: ['visualization'] }}
+        bootstrapURLKeys={{
+          key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+          libraries: ['visualization'],
+        }}
         defaultCenter={defaultProps.center}
         yesIWantToUseGoogleMapApiInternals
         defaultZoom={defaultProps.zoom}
@@ -52,6 +86,7 @@ export const Map = ({ lat, lng, setLat, setLng }: MapProps) => {
         onClick={(e) => {
           setLat(e.lat);
           setLng(e.lng);
+          onSetModeLocation();
         }}
       >
         <Marker lat={lat} lng={lng} />

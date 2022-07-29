@@ -5,7 +5,8 @@ import CardList from './card-list';
 import { IconButton } from '@mui/material';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { Location } from 'src/types';
-import useArticles from 'src/hooks/useArticles';
+import useArticlesByLocation from 'src/hooks/useArticlesByLocation';
+import useArticlesBySearch from 'src/hooks/useArticlesBySearch';
 
 const getLocationString = (location: Location) => {
   console.log(location);
@@ -35,18 +36,27 @@ const getLocationString = (location: Location) => {
 
 type DashboardSidebarProps = {
   location: Location;
+  search: string;
   open: boolean;
   onClose: () => void;
+  mode: 'location' | 'search';
 };
 
 export const DashboardSidebar = ({
   location,
+  search,
   open,
   onClose,
+  mode,
 }: DashboardSidebarProps) => {
   const router = useRouter();
   const theme = useTheme();
-  const articles = useArticles(location);
+  let articles;
+  if (mode === 'location') {
+    articles = useArticlesByLocation(location);
+  } else {
+    articles = useArticlesBySearch(search);
+  }
 
   useEffect(
     () => {
@@ -87,7 +97,9 @@ export const DashboardSidebar = ({
           <Box>
             <Box className="font--headline font-md3 font-bold">Articles</Box>
             <Box className="font-body mb-xxs font-light font-xxs antialiased gray-dark">
-              {getLocationString(location)}
+              {mode === 'location'
+                ? `Location: ${getLocationString(location)}`
+                : `Search: ${search}`}
             </Box>
           </Box>
           <Box sx={{ marginTop: '-1rem', marginRight: '-0.5rem' }}>
