@@ -96,7 +96,7 @@ export const DashboardSidebar = ({
         >
           <Box>
             <Box className="font--headline font-md3 font-bold">Articles</Box>
-            <Box className="font-body mb-xxs font-light font-xxs antialiased gray-dark">
+            <Box className="font-body mb-xxs font-light font-xs antialiased gray-dark">
               {mode === 'location'
                 ? `Location: ${getLocationString(location)}`
                 : `Search: "${search}"`}
