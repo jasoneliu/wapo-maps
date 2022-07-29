@@ -99,7 +99,7 @@ export const DashboardSidebar = ({
             <Box className="font-body mb-xxs font-light font-xxs antialiased gray-dark">
               {mode === 'location'
                 ? `Location: ${getLocationString(location)}`
-                : `Search: ${search}`}
+                : `Search: "${search}"`}
             </Box>
           </Box>
           <Box sx={{ marginTop: '-1rem', marginRight: '-0.5rem' }}>

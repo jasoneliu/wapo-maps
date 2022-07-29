@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 import styled from '@emotion/styled';
 import { AppBar, Box, IconButton, Toolbar } from '@mui/material';
 import NavigateNext from '@mui/icons-material/NavigateNext';
 import NavigateBefore from '@mui/icons-material/NavigateBefore';
 import { useTheme } from '@mui/material/styles';
-import { InputText } from '@washingtonpost/wpds-ui-kit';
-import { WashingtonPost } from '@washingtonpost/wpds-assets';
+import { InputText, Icon } from '@washingtonpost/wpds-ui-kit';
+import { Search, WashingtonPost } from '@washingtonpost/wpds-assets';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: { theme: any }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -28,6 +28,7 @@ export const DashboardNavbar = ({
   setSearch,
 }: DashboardNavbarProps) => {
   const theme = useTheme();
+  const [currSearch, setCurrSearch] = useState('');
 
   return (
     <>
@@ -57,13 +58,26 @@ export const DashboardNavbar = ({
               label="Search"
               id="search"
               name="search"
+              icon="right"
+              value={currSearch}
+              onChange={(e: any) => {
+                setCurrSearch(e.target.value);
+              }}
               onKeyDown={(e: any) => {
                 if (e.key === 'Enter') {
-                  setSearch(e.target.value);
+                  setSearch(currSearch);
                   onSetModeSearch();
                 }
               }}
-            />
+              onButtonIconClick={(e: any) => {
+                setSearch(currSearch);
+                onSetModeSearch();
+              }}
+            >
+              <Icon label="search">
+                <Search />
+              </Icon>
+            </InputText>
           </Box>
           <Box
             sx={{
@@ -82,7 +96,7 @@ export const DashboardNavbar = ({
               Democracy Dies in Darkness
             </Box>
           </Box>
-          <Box sx={{ width: '260.333px', height: '40px' }} />
+          <Box sx={{ width: '276.333px', height: '40px' }} />
         </Toolbar>
       </DashboardNavbarRoot>
     </>
