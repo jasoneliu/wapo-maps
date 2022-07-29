@@ -107,7 +107,7 @@ def search_articles():
 @app.route('/locations')
 def search_entities():
     topic = request.args.get('topic')
-    response = requests.get(f'https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query={topic}')
+    response = requests.get(f'https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query={topic}&count=5')
     results = response.json()["results"]
     limit = request.args.get('limit')
     upper_bound = len(results)

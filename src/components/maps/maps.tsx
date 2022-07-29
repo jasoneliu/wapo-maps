@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import GoogleMapReact from 'google-map-react';
 import PlaceIcon from '@mui/icons-material/Place';
+import useHeatmap from '../../hooks/useHeatmap';
 
 type MapProps = {
   lat: number;
@@ -33,7 +34,7 @@ export const Map = ({ lat, lng, setLat, setLng }: MapProps) => {
   };
 
   const heatMapData = {
-    positions: [{lat: 38.9028771, lng: -77.0308094, weight: Math.floor(Math.random() * Math.floor(5)) }],
+    positions: useHeatmap(),
     options: {
       radius: 40,
       opacity: 0.7

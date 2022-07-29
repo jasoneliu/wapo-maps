@@ -14,3 +14,14 @@ export type Location = {
   district: string;
   locality: string;
 };
+
+export type Coordinates = {
+  lat: number;
+  lng: number;
+}
+
+export type Heatmap = {
+  lat: number,
+  lng: number,
+  weight: number,
+}

@@ -22,7 +22,7 @@ export const DashboardNavbar = (props: DashboardNavbarProps) => {
   const theme = useTheme();
 
   const searchWebsite = (innerText: string) => {
-    fetch('http://10.4.7.15:5000/search?query=' + innerText)
+    fetch('http://localhost:5000/locations?topic=' + innerText)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
