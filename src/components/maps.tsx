@@ -40,38 +40,6 @@ export const Map = ({
     zoom: 10,
   };
 
-  const heatMapData = {
-    positions: useHeatmap([
-      'Gonzaga',
-      'Washington',
-      'Sardis',
-      'Inca',
-      'Falls Church',
-      'Atlanta',
-      'Canada',
-      'Hendersonville',
-      'Gram',
-      'Brentwood',
-      'Brussels',
-      'Nine',
-      'Lima',
-      'Puerto Rico',
-      'Ryan',
-      'Asheville',
-      'Baltimore',
-      'Sanchez',
-      'Louisiana',
-      'Decatur',
-      'Okay',
-      'House',
-      'Peru',
-    ]),
-    options: {
-      radius: 40,
-      opacity: 0.7,
-    },
-  };
-
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <GoogleMapReact
@@ -82,7 +50,6 @@ export const Map = ({
         defaultCenter={defaultProps.center}
         yesIWantToUseGoogleMapApiInternals
         defaultZoom={defaultProps.zoom}
-        heatmap={heatMapData}
         onClick={(e) => {
           setLat(e.lat);
           setLng(e.lng);
