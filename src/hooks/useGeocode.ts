@@ -8,7 +8,8 @@ const maps = axios.create({
 });
 
 const articles = axios.create({
-  baseURL: 'https://tabletapi.washingtonpost.com/apps-data-service/',
+  baseURL:
+    'https://proxy-wapo-maps.herokuapp.com/https://tabletapi.washingtonpost.com/apps-data-service/',
 });
 
 export default function useGeo(address: string): Heatmap {

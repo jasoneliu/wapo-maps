@@ -50,7 +50,7 @@ export default function useArticlesBySearch(search: string): Article[] {
     async function articlesBySearch(search: string): Promise<void> {
       let documents: any[] = [];
       const response = await fetch(
-        `https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query=${search}`
+        `https://proxy-wapo-maps.herokuapp.com/https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query=${search}`
       );
       const data = await response.json();
       documents = data.results.documents;
