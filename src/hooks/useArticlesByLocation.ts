@@ -121,7 +121,7 @@ export default function useArticlesByLocation(location: Location): Article[] {
     async function articlesByLocation(location: Location): Promise<void> {
       let documents: any[] = [];
       const response = await fetch(
-        `https://proxy-wapo-maps.herokuapp.com/https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query=${
+        `${process.env.NEXT_PUBLIC_SEARCH_API_ENDPOINT}?query=${
           location.country === 'United States'
             ? getLocalityState(location)
             : getLocalityCountry(location)
@@ -132,7 +132,7 @@ export default function useArticlesByLocation(location: Location): Article[] {
 
       if (documents.length < 3) {
         const response = await fetch(
-          `https://proxy-wapo-maps.herokuapp.com/https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query=${getState(
+          `${process.env.NEXT_PUBLIC_SEARCH_API_ENDPOINT}?query=${getState(
             location
           )}`
         );
@@ -142,7 +142,7 @@ export default function useArticlesByLocation(location: Location): Article[] {
 
       if (documents.length < 3) {
         const response = await fetch(
-          `https://proxy-wapo-maps.herokuapp.com/https://tabletapi.washingtonpost.com/apps-data-service/native-search.json?query=${getCountry(
+          `${process.env.NEXT_PUBLIC_SEARCH_API_ENDPOINT}?query=${getCountry(
             location
           )}`
         );

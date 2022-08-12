@@ -8,8 +8,7 @@ const maps = axios.create({
 });
 
 const articles = axios.create({
-  baseURL:
-    'https://proxy-wapo-maps.herokuapp.com/https://tabletapi.washingtonpost.com/apps-data-service/',
+  baseURL: `${process.env.NEXT_PUBLIC_SEARCH_API_ENDPOINT}`,
 });
 
 export default function useGeo(address: string): Heatmap {
@@ -26,7 +25,7 @@ export default function useGeo(address: string): Heatmap {
         params: { address: `${address}` },
       });
 
-      const { data: weightData } = await articles.get('/native-search.json', {
+      const { data: weightData } = await articles.get('', {
         params: { query: `${address}` },
       });
 
